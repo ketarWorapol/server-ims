@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// const route
+const UserRoute = require('./api/routes/user');
+const Observe_teaching = require('./api/routes/observe/observe_teacing');
+
 
 mongoose.connect(
     // 'mongodb+srv://ketar:' + process.env.MONGO_ATLAS_PW + '@internship-sblpt.gcp.mongodb.net/test?retryWrites=true&w=majority', {
@@ -30,7 +34,10 @@ app.use(function(req, res, next) {
         return res.status(200).json({});
     }
     next();
-  });
+});
+
+app.use('/user', UserRoute);
+app.use('/observeteaching',Observe_teaching);
 
 //กรณีหา Route ไม่เจอ Set ERROR
 app.use((req, res, next) => {
